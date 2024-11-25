@@ -93,3 +93,82 @@ activity_weight_merge <- activity_weight_merge %>% drop_na()
 sleep_weight_merge <- sleep_weight_merge %>% drop_na()
 ```
 
+```{r}
+# Add Weekday to activity and sleep merged data and turn it into a factor
+activity_sleep_merge <- activity_sleep_merge %>% mutate(Weekday = weekdays(date))
+
+activity_sleep_merge$Weekday <- factor(activity_sleep_merge$Weekday,
+                                       levels = c('Monday','Tuesday','Wednesday', 'Thursday',
+                                                  'Friday', 'Saturday', 'Sunday'))
+```
+
+```{r}
+# Create Pivot Table for summary plots
+activity_sleep_pivot <- activity_sleep_merge %>%
+  group_by(Weekday) %>%
+  summarize(mean_sleep_minutes = mean(total_minutes_asleep),
+            mean_steps = mean(total_steps),
+            mean_distance = mean(total_distance),
+            mean_sed_minutes = mean(sedentary_minutes),
+            mean_la_minutes = mean(lightly_active_minutes),
+            mean_fa_minutes = mean(fairly_active_minutes),
+            mean_va_minutes = mean(very_active_minutes))
+```
+
+
+```{r}
+# Create plot of avg sleep minutes per Weekday
+ggplot(data = activity_sleep_pivot, aes(x = Weekday, y = mean_sleep_minutes)) + 
+  geom_bar(stat = 'identity', fill = 'blue') +
+  labs(title = 'Average Minutes of Sleep by Weekday')+
+  ylab('Avg. Minutes of Sleep')
+```
+
+```{r}
+# Create plot of avg steps per Weekday
+ggplot(data = activity_sleep_pivot, aes(x = Weekday, y = mean_steps)) + 
+  geom_bar(stat = 'identity', fill = 'blue') +
+  labs(title = 'Average Steps by Weekday')+
+  ylab('Avg. Steps')
+```
+
+```{r}
+# Create plot of avg distance per Weekday
+ggplot(data = activity_sleep_pivot, aes(x = Weekday, y = mean_distance)) + 
+  geom_bar(stat = 'identity', fill = 'blue') +
+  labs(title = 'Average Distance Traveled by Weekday')+
+  ylab('Avg. Distance (km)')
+```
+
+```{r}
+# Create plot of avg sedentary minutes per Weekday
+ggplot(data = activity_sleep_pivot, aes(x = Weekday, y = mean_sed_minutes)) + 
+  geom_bar(stat = 'identity', fill = 'blue') +
+  labs(title = 'Average Sedentary Minutes by Weekday')+
+  ylab('Avg. Sedentary Minutes')
+```
+
+```{r}
+# Create plot of avg lightly active minutes per Weekday
+ggplot(data = activity_sleep_pivot, aes(x = Weekday, y = mean_la_minutes)) + 
+  geom_bar(stat = 'identity', fill = 'blue') +
+  labs(title = 'Average Lightly Active Minutes by Weekday')+
+  ylab('Avg. Lightly Active Minutes')
+```
+
+```{r}
+# Create plot of avg fairly active minutes per Weekday
+ggplot(data = activity_sleep_pivot, aes(x = Weekday, y = mean_fa_minutes)) + 
+  geom_bar(stat = 'identity', fill = 'blue') +
+  labs(title = 'Average Fairly Active Minutes by Weekday')+
+  ylab('Avg. Fairly Active Minutes')
+```
+
+```{r}
+# Create plot of avg very active minutes per Weekday
+ggplot(data = activity_sleep_pivot, aes(x = Weekday, y = mean_va_minutes)) + 
+  geom_bar(stat = 'identity', fill = 'blue') +
+  labs(title = 'Average Very Active Minutes by Weekday')+
+  ylab('Avg. Very Active Minutes')
+```
+
