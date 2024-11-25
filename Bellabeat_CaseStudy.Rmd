@@ -39,3 +39,57 @@ str(sleep_day)
 str(weight_info)
 ```
 
+```{r}
+# Clean column names
+daily_activity <- clean_names(daily_activity)
+sleep_day <- clean_names(sleep_day)
+weight_info <- clean_names(weight_info)
+```
+
+```{r}
+# Remove unused columns
+daily_activity_keep <- c('id','activity_date','total_steps','total_distance',
+                         'very_active_minutes','fairly_active_minutes', 'lightly_active_minutes',
+                         'sedentary_minutes', 'calories')
+sleep_day_keep <- c('id', 'sleep_day', 'total_minutes_asleep')
+weight_info_keep <- c('id', 'date', 'weight_pounds')
+
+daily_activity <- daily_activity %>% select(all_of(daily_activity_keep))
+sleep_day <- sleep_day %>% select(all_of(sleep_day_keep))
+weight_info <- weight_info %>% select(all_of(weight_info_keep))
+```
+
+```{r}
+# Change date columns to date format
+daily_activity$activity_date <- as.Date(daily_activity$activity_date, format('%m/%d/%Y'))
+
+sleep_day$sleep_day <- parse_date_time(sleep_day$sleep_day, '%m/%d/%Y %I:%M:%S %p')
+sleep_day$sleep_day <- as.Date(as.character(sleep_day$sleep_day), format('%Y-%m-%d'))
+
+# weight log requires a little more work
+weight_info$date <- parse_date_time(weight_info$date, '%m/%d/%Y %I:%M:%S %p')
+weight_info$date <- format(as.POSIXct(weight_info$date, format = '%Y%m%d %H:%M:%S'),
+                           format = '%Y-%m-%d')
+weight_info$date <- as.Date(weight_info$date, format('%Y-%m-%d'))
+```
+
+```{r}
+# Change column names for simplicity
+colnames(daily_activity)[colnames(daily_activity) == 'activity_date'] <- 'date'
+colnames(sleep_day)[colnames(sleep_day) == 'sleep_day'] <- 'date'
+```
+
+```{r}
+# Merge dataframes
+activity_sleep_merge <- merge(daily_activity, sleep_day, by = c('id', 'date'), all = TRUE)
+activity_weight_merge <- merge(daily_activity, weight_info, by = c('id', 'date'), all = TRUE)
+sleep_weight_merge <- merge(sleep_day, weight_info, by = c('id', 'date'), all = TRUE)
+```
+
+```{r}
+# Remove NAs
+activity_sleep_merge <- activity_sleep_merge %>% drop_na()
+activity_weight_merge <- activity_weight_merge %>% drop_na()
+sleep_weight_merge <- sleep_weight_merge %>% drop_na()
+```
+
