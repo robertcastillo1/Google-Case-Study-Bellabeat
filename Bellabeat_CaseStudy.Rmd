@@ -95,9 +95,9 @@ sleep_weight_merge <- sleep_weight_merge %>% drop_na()
 
 ```{r}
 # Add Weekday to activity and sleep merged data and turn it into a factor
-activity_sleep_merge <- activity_sleep_merge %>% mutate(Weekday = weekdays(date))
+activity_sleep_merge <- activity_sleep_merge %>% mutate(weekday = weekdays(date))
 
-activity_sleep_merge$Weekday <- factor(activity_sleep_merge$Weekday,
+activity_sleep_merge$weekday <- factor(activity_sleep_merge$weekday,
                                        levels = c('Monday','Tuesday','Wednesday', 'Thursday',
                                                   'Friday', 'Saturday', 'Sunday'))
 ```
@@ -105,7 +105,7 @@ activity_sleep_merge$Weekday <- factor(activity_sleep_merge$Weekday,
 ```{r}
 # Create Pivot Table for summary plots
 activity_sleep_pivot <- activity_sleep_merge %>%
-  group_by(Weekday) %>%
+  group_by(weekday) %>%
   summarize(mean_sleep_minutes = mean(total_minutes_asleep),
             mean_steps = mean(total_steps),
             mean_distance = mean(total_distance),
@@ -118,7 +118,7 @@ activity_sleep_pivot <- activity_sleep_merge %>%
 
 ```{r}
 # Create plot of avg sleep minutes per Weekday
-ggplot(data = activity_sleep_pivot, aes(x = Weekday, y = mean_sleep_minutes)) + 
+ggplot(data = activity_sleep_pivot, aes(x = weekday, y = mean_sleep_minutes)) + 
   geom_bar(stat = 'identity', fill = 'blue') +
   labs(title = 'Average Minutes of Sleep by Weekday')+
   ylab('Avg. Minutes of Sleep')
@@ -126,7 +126,7 @@ ggplot(data = activity_sleep_pivot, aes(x = Weekday, y = mean_sleep_minutes)) +
 
 ```{r}
 # Create plot of avg steps per Weekday
-ggplot(data = activity_sleep_pivot, aes(x = Weekday, y = mean_steps)) + 
+ggplot(data = activity_sleep_pivot, aes(x = weekday, y = mean_steps)) + 
   geom_bar(stat = 'identity', fill = 'blue') +
   labs(title = 'Average Steps by Weekday')+
   ylab('Avg. Steps')
@@ -134,7 +134,7 @@ ggplot(data = activity_sleep_pivot, aes(x = Weekday, y = mean_steps)) +
 
 ```{r}
 # Create plot of avg distance per Weekday
-ggplot(data = activity_sleep_pivot, aes(x = Weekday, y = mean_distance)) + 
+ggplot(data = activity_sleep_pivot, aes(x = weekday, y = mean_distance)) + 
   geom_bar(stat = 'identity', fill = 'blue') +
   labs(title = 'Average Distance Traveled by Weekday')+
   ylab('Avg. Distance (km)')
@@ -142,7 +142,7 @@ ggplot(data = activity_sleep_pivot, aes(x = Weekday, y = mean_distance)) +
 
 ```{r}
 # Create plot of avg sedentary minutes per Weekday
-ggplot(data = activity_sleep_pivot, aes(x = Weekday, y = mean_sed_minutes)) + 
+ggplot(data = activity_sleep_pivot, aes(x = weekday, y = mean_sed_minutes)) + 
   geom_bar(stat = 'identity', fill = 'blue') +
   labs(title = 'Average Sedentary Minutes by Weekday')+
   ylab('Avg. Sedentary Minutes')
@@ -150,7 +150,7 @@ ggplot(data = activity_sleep_pivot, aes(x = Weekday, y = mean_sed_minutes)) +
 
 ```{r}
 # Create plot of avg lightly active minutes per Weekday
-ggplot(data = activity_sleep_pivot, aes(x = Weekday, y = mean_la_minutes)) + 
+ggplot(data = activity_sleep_pivot, aes(x = weekday, y = mean_la_minutes)) + 
   geom_bar(stat = 'identity', fill = 'blue') +
   labs(title = 'Average Lightly Active Minutes by Weekday')+
   ylab('Avg. Lightly Active Minutes')
@@ -158,7 +158,7 @@ ggplot(data = activity_sleep_pivot, aes(x = Weekday, y = mean_la_minutes)) +
 
 ```{r}
 # Create plot of avg fairly active minutes per Weekday
-ggplot(data = activity_sleep_pivot, aes(x = Weekday, y = mean_fa_minutes)) + 
+ggplot(data = activity_sleep_pivot, aes(x = weekday, y = mean_fa_minutes)) + 
   geom_bar(stat = 'identity', fill = 'blue') +
   labs(title = 'Average Fairly Active Minutes by Weekday')+
   ylab('Avg. Fairly Active Minutes')
@@ -166,9 +166,84 @@ ggplot(data = activity_sleep_pivot, aes(x = Weekday, y = mean_fa_minutes)) +
 
 ```{r}
 # Create plot of avg very active minutes per Weekday
-ggplot(data = activity_sleep_pivot, aes(x = Weekday, y = mean_va_minutes)) + 
+ggplot(data = activity_sleep_pivot, aes(x = weekday, y = mean_va_minutes)) + 
   geom_bar(stat = 'identity', fill = 'blue') +
   labs(title = 'Average Very Active Minutes by Weekday')+
   ylab('Avg. Very Active Minutes')
+```
+
+```{r}
+# Create activity scores to help determine individual daily activity levels 
+activity_sleep_merge$very_active_score <-
+  activity_sleep_merge$very_active_minutes/mean(activity_sleep_merge$very_active_minutes)
+
+activity_sleep_merge$fairly_active_score <-
+  activity_sleep_merge$fairly_active_minutes/mean(activity_sleep_merge$fairly_active_minutes)
+
+activity_sleep_merge$lightly_active_score <-
+  activity_sleep_merge$lightly_active_minutes/mean(activity_sleep_merge$lightly_active_minutes)
+
+activity_sleep_merge$sedentary_score <-
+  activity_sleep_merge$sedentary_minutes/mean(activity_sleep_merge$sedentary_minutes)
+         
+```
+
+
+
+```{r}
+# Create the activity level on a row by row basis
+activity_level <- c()
+
+for (i in 1:nrow(activity_sleep_merge)) {
+  if(max(activity_sleep_merge$very_active_score[i],
+         activity_sleep_merge$fairly_active_score[i],
+         activity_sleep_merge$lightly_active_score[i],
+         activity_sleep_merge$sedentary_score[i]) == activity_sleep_merge$sedentary_score[i]){
+    activity_level[i] <- "Sedentary"
+  } else if(max(activity_sleep_merge$very_active_score[i],
+         activity_sleep_merge$fairly_active_score[i],
+         activity_sleep_merge$lightly_active_score[i],
+         activity_sleep_merge$sedentary_score[i]) ==
+         activity_sleep_merge$lightly_active_score[i]){
+    activity_level[i] <- "Lightly Active"
+  } else if(max(activity_sleep_merge$very_active_score[i],
+         activity_sleep_merge$fairly_active_score[i],
+         activity_sleep_merge$lightly_active_score[i],
+         activity_sleep_merge$sedentary_score[i]) ==
+         activity_sleep_merge$fairly_active_score[i]){
+    activity_level[i] <- "Fairly Active"
+  } else if(max(activity_sleep_merge$very_active_score[i],
+         activity_sleep_merge$fairly_active_score[i],
+         activity_sleep_merge$lightly_active_score[i],
+         activity_sleep_merge$sedentary_score[i]) ==
+         activity_sleep_merge$very_active_score[i]){
+    activity_level[i] <- "Very Active"
+  }
+}
+```
+
+```{r}
+# Add activity level into the dataframe and turn it into a factor
+activity_sleep_merge$activity_level <- activity_level
+
+activity_sleep_merge$activity_level <- factor(activity_sleep_merge$activity_level,
+                                       levels = c('Sedentary','Lightly Active',
+                                                  'Fairly Active', 'Very Active'))
+
+# Drop the score columns
+activity_sleep_merge <- activity_sleep_merge %>% select(-c(sedentary_score,
+                                                           lightly_active_score,
+                                                           fairly_active_score,
+                                                           very_active_score))
+```
+
+
+```{r}
+# Create boxplots of calories burned for each activity level
+ggplot(data = activity_sleep_merge, aes(x = activity_level, y = calories,
+                                        fill = activity_level)) +
+  geom_boxplot() +
+  theme(legend.position = 'none') +
+  labs(title = 'Calories burned by activity level')
 ```
 
