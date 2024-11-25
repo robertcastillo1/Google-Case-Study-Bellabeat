@@ -1,0 +1,41 @@
+---
+title: "Bellabeat Case Study"
+author: "Robert Castillo"
+date: "`r Sys.Date()`"
+output: pdf_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+```{r}
+# Install necessary packages
+install.packages('tidyverse')
+install.packages('janitor')
+install.packages('lubridate')
+install.packages('skimr')
+```
+
+```{r}
+# Load libraries
+library(tidyverse)
+library(janitor)
+library(lubridate)
+library(skimr)
+```
+
+```{r}
+# Load in the datasets
+daily_activity <- read.csv("dailyActivity_merged.csv")
+sleep_day <- read.csv("sleepDay_merged.csv")
+weight_info <- read.csv("weightLogInfo_merged.csv")
+```
+
+```{r}
+# Check the structure for any glaring format issues
+str(daily_activity)
+str(sleep_day)
+str(weight_info)
+```
+
