@@ -256,7 +256,7 @@ ggplot(data = activity_sleep_merge, aes(x = total_steps, y = total_minutes_aslee
 ```
 
 ```{r}
-# Correlation between total steps and total minutes asleep
+# Correlation between total steps and sleep minutes
 cor(activity_sleep_merge$total_steps, activity_sleep_merge$total_minutes_asleep)
 ```
 
@@ -269,7 +269,7 @@ ggplot(data = activity_sleep_merge, aes(x = total_distance, y = total_minutes_as
 ```
 
 ```{r}
-# Correlation between total distance and total minutes asleep
+# Correlation between total distance and sleep minutes
 cor(activity_sleep_merge$total_distance, activity_sleep_merge$total_minutes_asleep)
 ```
 
@@ -282,7 +282,7 @@ ggplot(data = activity_sleep_merge, aes(x = very_active_minutes, y = total_minut
 ```
 
 ```{r}
-# Correlation between very active minutes and total minutes asleep
+# Correlation between very active minutes and sleep minutes
 cor(activity_sleep_merge$very_active_minutes, activity_sleep_merge$total_minutes_asleep)
 ```
 
@@ -295,7 +295,7 @@ ggplot(data = activity_sleep_merge, aes(x = fairly_active_minutes, y = total_min
 ```
 
 ```{r}
-# Correlation between fairly active minutes and total minutes asleep
+# Correlation between fairly active minutes and sleep minutes
 cor(activity_sleep_merge$fairly_active_minutes, activity_sleep_merge$total_minutes_asleep)
 ```
 
@@ -308,7 +308,7 @@ ggplot(data = activity_sleep_merge, aes(x = lightly_active_minutes, y = total_mi
 ```
 
 ```{r}
-# Correlation between lightly active minutes and total minutes asleep
+# Correlation between lightly active minutes and sleep minutes
 cor(activity_sleep_merge$lightly_active_minutes, activity_sleep_merge$total_minutes_asleep)
 ```
 
@@ -321,64 +321,64 @@ ggplot(data = activity_sleep_merge, aes(x = sedentary_minutes, y = total_minutes
 ```
 
 ```{r}
-# Correlation between sedentary minutes and total minutes asleep
+# Correlation between sedentary minutes and sleep minutes
 cor(activity_sleep_merge$sedentary_minutes, activity_sleep_merge$total_minutes_asleep)
 ```
 
 ```{r}
-# Create scatterplot for total steps and weight
+# Create scatterplot for total steps and weight (pounds)
 ggplot(data = activity_weight_merge, aes(x = total_steps, y = weight_pounds)) +
   geom_point(color = 'blue') +
   geom_smooth(method = lm)
 ```
 
 ```{r}
-# Correlation between total steps and total minutes asleep
+# Correlation between total steps and weight (pounds)
 cor(activity_weight_merge$total_steps, activity_weight_merge$weight_pounds)
 ```
 
 
 ```{r}
-# Create scatterplot for total distance and sleep minutes
+# Create scatterplot for total distance and weight (pounds)
 ggplot(data = activity_weight_merge, aes(x = total_distance, y = weight_pounds)) +
   geom_point(color = 'blue') +
   geom_smooth(method = lm)
 ```
 
 ```{r}
-# Correlation between total distance and total minutes asleep
+# Correlation between total distance and weight (pounds)
 cor(activity_weight_merge$total_distance, activity_weight_merge$weight_pounds)
 ```
 
 
 ```{r}
-# Create scatterplot for very active minutes and sleep minutes
+# Create scatterplot for very active minutes and weight (pounds)
 ggplot(data = activity_weight_merge, aes(x = very_active_minutes, y = weight_pounds)) +
   geom_point(color = 'blue') +
   geom_smooth(method = lm)
 ```
 
 ```{r}
-# Correlation between very active minutes and total minutes asleep
+# Correlation between very active minutes and weight (pounds)
 cor(activity_weight_merge$very_active_minutes, activity_weight_merge$weight_pounds)
 ```
 
 
 ```{r}
-# Create scatterplot for fairly active minutes and sleep minutes
+# Create scatterplot for fairly active minutes and weight (pounds)
 ggplot(data = activity_weight_merge, aes(x = fairly_active_minutes, y = weight_pounds)) +
   geom_point(color = 'blue') +
   geom_smooth(method = lm)
 ```
 
 ```{r}
-# Correlation between fairly active minutes and total minutes asleep
+# Correlation between fairly active minutes and weight (pounds)
 cor(activity_weight_merge$fairly_active_minutes, activity_weight_merge$weight_pounds)
 ```
 
 
 ```{r}
-# Create scatterplot for lightly active minutes and sleep minutes
+# Create scatterplot for lightly active minutes and weight (pounds)
 ggplot(data = activity_weight_merge,
        aes(x = lightly_active_minutes, y = weight_pounds)) +
   geom_point(color = 'blue') +
@@ -386,19 +386,99 @@ ggplot(data = activity_weight_merge,
 ```
 
 ```{r}
-# Correlation between lightly active minutes and total minutes asleep
+# Correlation between lightly active minutes and weight (pounds)
 cor(activity_weight_merge$lightly_active_minutes, activity_weight_merge$weight_pounds)
 ```
 
 
 ```{r}
-# Create scatterplot for sedentary minutes and sleep minutes
+# Create scatterplot for sedentary minutes and weight (pounds)
 ggplot(data = activity_weight_merge, aes(x = sedentary_minutes, y = weight_pounds)) +
   geom_point(color = 'blue') +
   geom_smooth(method = lm)
 ```
 
 ```{r}
-# Correlation between sedentary minutes and total minutes asleep
+# Correlation between sedentary minutes and weight (pounds)
 cor(activity_weight_merge$sedentary_minutes, activity_weight_merge$weight_pounds)
 ```
+
+
+
+```{r}
+# Create scatterplot for total steps and calories
+ggplot(data = activity_sleep_merge, aes(x = total_steps, y = calories)) +
+  geom_point(color = 'blue') +
+  geom_smooth(method = lm)
+```
+
+```{r}
+# Correlation between total steps and calories
+cor(activity_sleep_merge$total_steps, activity_sleep_merge$calories)
+```
+
+
+```{r}
+# Create scatterplot for total distance and calories
+ggplot(data = activity_sleep_merge, aes(x = total_distance, y = calories)) +
+  geom_point(color = 'blue') +
+  geom_smooth(method = lm)
+```
+
+```{r}
+# Correlation between total distance and calories
+cor(activity_sleep_merge$total_distance, activity_sleep_merge$calories)
+```
+
+
+```{r}
+# Create scatterplot for very active minutes and calories
+ggplot(data = activity_sleep_merge, aes(x = very_active_minutes, y = calories)) +
+  geom_point(color = 'blue') +
+  geom_smooth(method = lm)
+```
+
+```{r}
+# Correlation between very active minutes and calories
+cor(activity_sleep_merge$very_active_minutes, activity_sleep_merge$calories)
+```
+
+
+```{r}
+# Create scatterplot for fairly active minutes and calories
+ggplot(data = activity_sleep_merge, aes(x = fairly_active_minutes, y = calories)) +
+  geom_point(color = 'blue') +
+  geom_smooth(method = lm)
+```
+
+```{r}
+# Correlation between fairly active minutes and calories
+cor(activity_sleep_merge$fairly_active_minutes, activity_sleep_merge$calories)
+```
+
+
+```{r}
+# Create scatterplot for lightly active minutes and calories
+ggplot(data = activity_sleep_merge, aes(x = lightly_active_minutes, y = calories)) +
+  geom_point(color = 'blue') +
+  geom_smooth(method = lm)
+```
+
+```{r}
+# Correlation between lightly active minutes and calories
+cor(activity_sleep_merge$lightly_active_minutes, activity_sleep_merge$calories)
+```
+
+
+```{r}
+# Create scatterplot for sedentary minutes and calories
+ggplot(data = activity_sleep_merge, aes(x = sedentary_minutes, y = calories)) +
+  geom_point(color = 'blue') +
+  geom_smooth(method = lm)
+```
+
+```{r}
+# Correlation between sedentary minutes and calories
+cor(activity_sleep_merge$sedentary_minutes, activity_sleep_merge$calories)
+```
+
