@@ -247,3 +247,81 @@ ggplot(data = activity_sleep_merge, aes(x = activity_level, y = calories,
   labs(title = 'Calories burned by activity level')
 ```
 
+
+```{r}
+# Create scatterplot for total steps and sleep minutes
+ggplot(data = activity_sleep_merge, aes(x = total_steps, y = total_minutes_asleep)) +
+  geom_point(color = 'blue') +
+  geom_smooth(method = lm)
+```
+
+```{r}
+# Correlation between total steps and total minutes asleep
+cor(activity_sleep_merge$total_steps, activity_sleep_merge$total_minutes_asleep)
+```
+
+
+```{r}
+# Create scatterplot for total distance and sleep minutes
+ggplot(data = activity_sleep_merge, aes(x = total_distance, y = total_minutes_asleep)) +
+  geom_point(color = 'blue') +
+  geom_smooth(method = lm)
+```
+
+```{r}
+# Correlation between total distance and total minutes asleep
+cor(activity_sleep_merge$total_distance, activity_sleep_merge$total_minutes_asleep)
+```
+
+
+```{r}
+# Create scatterplot for very active minutes and sleep minutes
+ggplot(data = activity_sleep_merge, aes(x = very_active_minutes, y = total_minutes_asleep)) +
+  geom_point(color = 'blue') +
+  geom_smooth(method = lm)
+```
+
+```{r}
+# Correlation between very active minutes and total minutes asleep
+cor(activity_sleep_merge$very_active_minutes, activity_sleep_merge$total_minutes_asleep)
+```
+
+
+```{r}
+# Create scatterplot for fairly active minutes and sleep minutes
+ggplot(data = activity_sleep_merge, aes(x = fairly_active_minutes, y = total_minutes_asleep)) +
+  geom_point(color = 'blue') +
+  geom_smooth(method = lm)
+```
+
+```{r}
+# Correlation between fairly active minutes and total minutes asleep
+cor(activity_sleep_merge$fairly_active_minutes, activity_sleep_merge$total_minutes_asleep)
+```
+
+
+```{r}
+# Create scatterplot for lightly active minutes and sleep minutes
+ggplot(data = activity_sleep_merge, aes(x = lightly_active_minutes, y = total_minutes_asleep)) +
+  geom_point(color = 'blue') +
+  geom_smooth(method = lm)
+```
+
+```{r}
+# Correlation between lightly active minutes and total minutes asleep
+cor(activity_sleep_merge$lightly_active_minutes, activity_sleep_merge$total_minutes_asleep)
+```
+
+
+```{r}
+# Create scatterplot for sedentary minutes and sleep minutes
+ggplot(data = activity_sleep_merge, aes(x = sedentary_minutes, y = total_minutes_asleep)) +
+  geom_point(color = 'blue') +
+  geom_smooth(method = lm)
+```
+
+```{r}
+# Correlation between sedentary minutes and total minutes asleep
+cor(activity_sleep_merge$sedentary_minutes, activity_sleep_merge$total_minutes_asleep)
+```
+
