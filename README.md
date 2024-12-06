@@ -24,3 +24,33 @@ Once the conversions are complete, merge the dataframes into two main dataframes
 Finally create a Weekday column and a factor determining a users' Activity Level:
 
 (Include the code for creating Weekday and Activity_Level)
+
+## Analyze
+Summary:
+Obtain the summary for all columns. We can see that the average amount of time spent per day as sedentary is about 12 hours, lightly active is about 3 and a half hours, and both fairly active and very active less than about half an hour. The average amount of sleep per day is about 7 hours. The average calories burned is about 2400, the average steps is about 8500, and the average distance traveled is about 6 km. Finally the average weight is about 160 pounds. 
+
+(Include code and output for the summaries of the 2 datasets)
+
+Calories:
+Based on the boxplot below, we can see that as expected those who were very active have on average more calories burned. Slightly more surprising is the fact that those who were lightly active have on average more calories burned than those in the fairly active or sedentary groups.
+
+(Include code and plot for Calories burned by activity level)
+
+When we look at the scatterplots of the different activity level minutes, we can see that all activity level minutes have a positive correlation with calories burned. Because they are all similar plots, there aren't too many strong conclusions we can make about the ideal activity level to have.
+
+(Include code and plots for calories burned by activity type minutes)
+
+Weekday:
+As a result of lightly active individuals having more calories burned than fairly active or sedentary people, I took a closer look at Lightly Active Minutes by Weekday. As can be seen below, Saturday has the highest average lightly active minutes and Sunday has the lowest. During the week, minutes decrease as the week go along, and then increase once the weekend arrives.
+
+(Include code and plot for Average Lightly Active Minutes by Weekday)
+
+Sleep:
+I wanted to get an idea of the relationship between the different activity level minutes and sleep. Based on the scatterplots below, most activity level minutes have a negative correlation with sleep minutes. Lightly active minutes have almost no correlation with sleep minutes
+
+(Include code and scatterplots for all 4 activity level types and sleep minutes)
+
+Weight:
+When looking at activity level minutes and weight, we can see some interesting relationships. Both Fairly active minutes and lightly active minutes have a negative relationship with weight. Oddly enough very active minutes have a positive relationship with weight. When you look at the plot there are very clearly two major weights: around 180 and 130 pounds. So maybe the trend line is not the most indicative of a strong correlation.
+
+(Include code and scatterplots for all 4 activity level types and weight)
