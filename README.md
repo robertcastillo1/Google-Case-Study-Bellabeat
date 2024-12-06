@@ -54,3 +54,9 @@ Weight:
 When looking at activity level minutes and weight, we can see some interesting relationships. Both Fairly active minutes and lightly active minutes have a negative relationship with weight. Oddly enough very active minutes have a positive relationship with weight. When you look at the plot there are very clearly two major weights: around 180 and 130 pounds. So maybe the trend line is not the most indicative of a strong correlation.
 
 (Include code and scatterplots for all 4 activity level types and weight)
+
+## Share
+
+(Include link to Tableau dashboard)
+
+(Include link/file for the PowerPoint presentation)
