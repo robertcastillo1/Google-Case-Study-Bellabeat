@@ -60,3 +60,17 @@ When looking at activity level minutes and weight, we can see some interesting r
 (Include link to Tableau dashboard)
 
 (Include link/file for the PowerPoint presentation)
+
+## Act
+Conclusions based on the Analysis:
+* Most minutes are spent as sedentary followed by lightly active. Users spend about 12 hours a day in sedentary and about 3 and a half hours in lightly active.
+* Those in the very active level burn on average the most calories at about 2900 calories, but lightly active users burn the next most calories at about 2300; more than fairly active at about 2100 calories.
+* Individuals tend to be lightly active the most on Saturday and the least on Sunday. As the week goes on, lightly active minutes decrease.
+* Most activity levels have a negative correlation with sleep, except for lightly active.
+* Fairly active minutes and lightly active minutes have a negative correlation with weight.
+
+Recommendations:
+* Obtain more data, especially surrounding weight information, so there can be more comprehensive analysis.
+* Create a campaign that encourages members to be lightly active throughout the week, primarily on Sundays and Thursdays. This can be paired with incentives for those who are active throughout the whole week.
+* Partner with weight loss companies to help promote maintaining fairly or lightly active lifestyles.
+* Bellabeat could use products such as Leaf to remind users to be more active when they are sedentary for prolonged periods of time. 
