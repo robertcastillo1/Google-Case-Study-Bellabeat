@@ -13,47 +13,212 @@ There are some concerns with the data, primarily that there is data from only 30
 
 ## Process
 To process the data we first clean the data in the three primary tables: daily_activity, sleep_day, and weight. We start with cleaning the column names and removing unused columns:
-(Include code for column cleaning and removal)
+
+```
+# Clean column names
+daily_activity <- clean_names(daily_activity)
+sleep_day <- clean_names(sleep_day)
+weight_info <- clean_names(weight_info)
+```
+
+```
+# Remove unused columns
+daily_activity_keep <- c('id','activity_date','total_steps','total_distance',
+                         'very_active_minutes','fairly_active_minutes', 'lightly_active_minutes',
+                         'sedentary_minutes', 'calories')
+sleep_day_keep <- c('id', 'sleep_day', 'total_minutes_asleep')
+weight_info_keep <- c('id', 'date', 'weight_pounds')
+
+daily_activity <- daily_activity %>% select(all_of(daily_activity_keep))
+sleep_day <- sleep_day %>% select(all_of(sleep_day_keep))
+weight_info <- weight_info %>% select(all_of(weight_info_keep))
+```
 
 Then we need to convert the date columns into a date format using as.Date, parse_date_time, and as.POSIXct:
-(Include code for converting date columns)
+
+```
+# Change date columns to date format
+daily_activity$activity_date <- as.Date(daily_activity$activity_date, format('%m/%d/%Y'))
+
+sleep_day$sleep_day <- parse_date_time(sleep_day$sleep_day, '%m/%d/%Y %I:%M:%S %p')
+sleep_day$sleep_day <- as.Date(as.character(sleep_day$sleep_day), format('%Y-%m-%d'))
+
+# weight log requires a little more work
+weight_info$date <- parse_date_time(weight_info$date, '%m/%d/%Y %I:%M:%S %p')
+weight_info$date <- format(as.POSIXct(weight_info$date, format = '%Y%m%d %H:%M:%S'),
+                           format = '%Y-%m-%d')
+weight_info$date <- as.Date(weight_info$date, format('%Y-%m-%d'))
+```
+
+```
+# Change column names for simplicity
+colnames(daily_activity)[colnames(daily_activity) == 'activity_date'] <- 'date'
+colnames(sleep_day)[colnames(sleep_day) == 'sleep_day'] <- 'date'
+```
 
 Once the conversions are complete, merge the dataframes into two main dataframes to maintain the number of records and remove NA values:
-(Include code for merge dataframes (activity_sleep and activity_weight) and removing NAs)
+
+```
+# Merge dataframes
+activity_sleep_merge <- merge(daily_activity, sleep_day, by = c('id', 'date'), all = TRUE)
+activity_weight_merge <- merge(daily_activity, weight_info, by = c('id', 'date'), all = TRUE)
+sleep_weight_merge <- merge(sleep_day, weight_info, by = c('id', 'date'), all = TRUE)
+```
+
+```
+# Remove NAs
+activity_sleep_merge <- activity_sleep_merge %>% drop_na()
+activity_weight_merge <- activity_weight_merge %>% drop_na()
+sleep_weight_merge <- sleep_weight_merge %>% drop_na()
+```
 
 Finally create a Weekday column and a factor determining a users' Activity Level:
 
-(Include the code for creating Weekday and Activity_Level)
+```
+# Add Weekday to activity and sleep merged data and turn it into a factor
+activity_sleep_merge <- activity_sleep_merge %>% mutate(weekday = weekdays(date))
+
+activity_sleep_merge$weekday <- factor(activity_sleep_merge$weekday,
+                                       levels = c('Monday','Tuesday','Wednesday', 'Thursday',
+                                                  'Friday', 'Saturday', 'Sunday'))
+```
 
 ## Analyze
 Summary:
 Obtain the summary for all columns. We can see that the average amount of time spent per day as sedentary is about 12 hours, lightly active is about 3 and a half hours, and both fairly active and very active less than about half an hour. The average amount of sleep per day is about 7 hours. The average calories burned is about 2400, the average steps is about 8500, and the average distance traveled is about 6 km. Finally the average weight is about 160 pounds. 
 
-(Include code and output for the summaries of the 2 datasets)
+```
+summary(activity_sleep_merge)
+```
+
+```
+summary(activity_weight_merge)
+```
+(Include output for the summaries of the 2 datasets)
 
 Calories:
 Based on the boxplot below, we can see that as expected those who were very active have on average more calories burned. Slightly more surprising is the fact that those who were lightly active have on average more calories burned than those in the fairly active or sedentary groups.
 
-(Include code and plot for Calories burned by activity level)
+```
+# Create boxplots of calories burned for each activity level
+ggplot(data = activity_sleep_merge, aes(x = activity_level, y = calories,
+                                        fill = activity_level)) +
+  geom_boxplot() +
+  theme(legend.position = 'none') +
+  labs(title = 'Calories burned by activity level')
+```
+
+(Include plot for Calories burned by activity level)
 
 When we look at the scatterplots of the different activity level minutes, we can see that all activity level minutes have a positive correlation with calories burned. Because they are all similar plots, there aren't too many strong conclusions we can make about the ideal activity level to have.
 
-(Include code and plots for calories burned by activity type minutes)
+```
+# Create scatterplot for very active minutes and calories
+ggplot(data = activity_sleep_merge, aes(x = very_active_minutes, y = calories)) +
+  geom_point(color = 'blue') +
+  geom_smooth(method = lm)
+```
+
+```
+# Create scatterplot for fairly active minutes and calories
+ggplot(data = activity_sleep_merge, aes(x = fairly_active_minutes, y = calories)) +
+  geom_point(color = 'blue') +
+  geom_smooth(method = lm)
+```
+
+```
+# Create scatterplot for lightly active minutes and calories
+ggplot(data = activity_sleep_merge, aes(x = lightly_active_minutes, y = calories)) +
+  geom_point(color = 'blue') +
+  geom_smooth(method = lm)
+```
+
+```
+# Create scatterplot for sedentary minutes and calories
+ggplot(data = activity_sleep_merge, aes(x = sedentary_minutes, y = calories)) +
+  geom_point(color = 'blue') +
+  geom_smooth(method = lm)
+```
+
+(Include plots for calories burned by activity type minutes)
 
 Weekday:
 As a result of lightly active individuals having more calories burned than fairly active or sedentary people, I took a closer look at Lightly Active Minutes by Weekday. As can be seen below, Saturday has the highest average lightly active minutes and Sunday has the lowest. During the week, minutes decrease as the week go along, and then increase once the weekend arrives.
 
-(Include code and plot for Average Lightly Active Minutes by Weekday)
+```
+# Create plot of avg lightly active minutes per Weekday
+ggplot(data = activity_sleep_pivot, aes(x = weekday, y = mean_la_minutes)) + 
+  geom_bar(stat = 'identity', fill = 'blue') +
+  labs(title = 'Average Lightly Active Minutes by Weekday')+
+  ylab('Avg. Lightly Active Minutes')
+```
+
+(Include plot for Average Lightly Active Minutes by Weekday)
 
 Sleep:
 I wanted to get an idea of the relationship between the different activity level minutes and sleep. Based on the scatterplots below, most activity level minutes have a negative correlation with sleep minutes. Lightly active minutes have almost no correlation with sleep minutes
 
-(Include code and scatterplots for all 4 activity level types and sleep minutes)
+```
+# Create scatterplot for very active minutes and sleep minutes
+ggplot(data = activity_sleep_merge, aes(x = very_active_minutes, y = total_minutes_asleep)) +
+  geom_point(color = 'blue') +
+  geom_smooth(method = lm)
+```
+
+```
+# Create scatterplot for fairly active minutes and sleep minutes
+ggplot(data = activity_sleep_merge, aes(x = fairly_active_minutes, y = total_minutes_asleep)) +
+  geom_point(color = 'blue') +
+  geom_smooth(method = lm)
+```
+
+```
+# Create scatterplot for lightly active minutes and sleep minutes
+ggplot(data = activity_sleep_merge, aes(x = lightly_active_minutes, y = total_minutes_asleep)) +
+  geom_point(color = 'blue') +
+  geom_smooth(method = lm)
+```
+
+```
+# Create scatterplot for sedentary minutes and sleep minutes
+ggplot(data = activity_sleep_merge, aes(x = sedentary_minutes, y = total_minutes_asleep)) +
+  geom_point(color = 'blue') +
+  geom_smooth(method = lm)
+```
+(Include scatterplots for all 4 activity level types and sleep minutes)
 
 Weight:
 When looking at activity level minutes and weight, we can see some interesting relationships. Both Fairly active minutes and lightly active minutes have a negative relationship with weight. Oddly enough very active minutes have a positive relationship with weight. When you look at the plot there are very clearly two major weights: around 180 and 130 pounds. So maybe the trend line is not the most indicative of a strong correlation.
 
-(Include code and scatterplots for all 4 activity level types and weight)
+```
+# Create scatterplot for very active minutes and weight (pounds)
+ggplot(data = activity_weight_merge, aes(x = very_active_minutes, y = weight_pounds)) +
+  geom_point(color = 'blue') +
+  geom_smooth(method = lm)
+```
+
+```
+# Create scatterplot for fairly active minutes and weight (pounds)
+ggplot(data = activity_weight_merge, aes(x = fairly_active_minutes, y = weight_pounds)) +
+  geom_point(color = 'blue') +
+  geom_smooth(method = lm)
+```
+
+```
+# Create scatterplot for lightly active minutes and weight (pounds)
+ggplot(data = activity_weight_merge,
+       aes(x = lightly_active_minutes, y = weight_pounds)) +
+  geom_point(color = 'blue') +
+  geom_smooth(method = lm)
+```
+
+```
+# Create scatterplot for sedentary minutes and weight (pounds)
+ggplot(data = activity_weight_merge, aes(x = sedentary_minutes, y = weight_pounds)) +
+  geom_point(color = 'blue') +
+  geom_smooth(method = lm)
+```
+(Include scatterplots for all 4 activity level types and weight)
 
 ## Share
 
