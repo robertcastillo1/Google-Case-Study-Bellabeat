@@ -10,11 +10,22 @@ knitr::opts_chunk$set(echo = TRUE)
 ```
 
 ```{r}
+options(width = 90, xtable.comment = FALSE)
+```
+
+```{r}
+if( !dir.exists("_assets")){
+  dir.create("_assets")
+}
+```
+
+```{r}
 # Install necessary packages
 install.packages('tidyverse')
 install.packages('janitor')
 install.packages('lubridate')
 install.packages('skimr')
+install.packages('xtable')
 ```
 
 ```{r}
@@ -23,6 +34,7 @@ library(tidyverse)
 library(janitor)
 library(lubridate)
 library(skimr)
+library(xtable)
 ```
 
 ```{r}
@@ -118,58 +130,114 @@ activity_sleep_pivot <- activity_sleep_merge %>%
 
 ```{r}
 # Create plot of avg sleep minutes per Weekday
-ggplot(data = activity_sleep_pivot, aes(x = weekday, y = mean_sleep_minutes)) + 
+p <- ggplot(data = activity_sleep_pivot, aes(x = weekday, y = mean_sleep_minutes)) + 
   geom_bar(stat = 'identity', fill = 'blue') +
   labs(title = 'Average Minutes of Sleep by Weekday')+
-  ylab('Avg. Minutes of Sleep')
+  ylab('Avg. Minutes of Sleep') +
+  xlab('Weekday')
+
+png(file.path(getwd(),"_assets",
+              "Sleep_Minutes_Weekday.png")
+    )
+print(p)
+
+dev.off()
 ```
 
 ```{r}
 # Create plot of avg steps per Weekday
-ggplot(data = activity_sleep_pivot, aes(x = weekday, y = mean_steps)) + 
+p <- ggplot(data = activity_sleep_pivot, aes(x = weekday, y = mean_steps)) + 
   geom_bar(stat = 'identity', fill = 'blue') +
   labs(title = 'Average Steps by Weekday')+
-  ylab('Avg. Steps')
+  ylab('Avg. Steps') +
+  xlab('Weekday')
+
+png(file.path(getwd(),"_assets",
+              "Steps_Weekday.png")
+    )
+print(p)
+
+dev.off()
 ```
 
 ```{r}
 # Create plot of avg distance per Weekday
-ggplot(data = activity_sleep_pivot, aes(x = weekday, y = mean_distance)) + 
+p <- ggplot(data = activity_sleep_pivot, aes(x = weekday, y = mean_distance)) + 
   geom_bar(stat = 'identity', fill = 'blue') +
   labs(title = 'Average Distance Traveled by Weekday')+
-  ylab('Avg. Distance (km)')
+  ylab('Avg. Distance (km)') +
+  xlab('Weekday')
+
+png(file.path(getwd(),"_assets",
+              "Distance_Weekday.png")
+    )
+print(p)
+
+dev.off()
 ```
 
 ```{r}
 # Create plot of avg sedentary minutes per Weekday
-ggplot(data = activity_sleep_pivot, aes(x = weekday, y = mean_sed_minutes)) + 
+p <- ggplot(data = activity_sleep_pivot, aes(x = weekday, y = mean_sed_minutes)) + 
   geom_bar(stat = 'identity', fill = 'blue') +
   labs(title = 'Average Sedentary Minutes by Weekday')+
-  ylab('Avg. Sedentary Minutes')
+  ylab('Avg. Sedentary Minutes') +
+  xlab('Weekday')
+
+png(file.path(getwd(),"_assets",
+              "Sedentary_Weekday.png")
+    )
+print(p)
+
+dev.off()
 ```
 
 ```{r}
 # Create plot of avg lightly active minutes per Weekday
-ggplot(data = activity_sleep_pivot, aes(x = weekday, y = mean_la_minutes)) + 
+p <- ggplot(data = activity_sleep_pivot, aes(x = weekday, y = mean_la_minutes)) + 
   geom_bar(stat = 'identity', fill = 'blue') +
   labs(title = 'Average Lightly Active Minutes by Weekday')+
-  ylab('Avg. Lightly Active Minutes')
+  ylab('Avg. Lightly Active Minutes') +
+  xlab('Weekday')
+
+png(file.path(getwd(),"_assets",
+              "Lightly_Weekday.png")
+    )
+print(p)
+
+dev.off()
 ```
 
 ```{r}
 # Create plot of avg fairly active minutes per Weekday
-ggplot(data = activity_sleep_pivot, aes(x = weekday, y = mean_fa_minutes)) + 
+p <- ggplot(data = activity_sleep_pivot, aes(x = weekday, y = mean_fa_minutes)) + 
   geom_bar(stat = 'identity', fill = 'blue') +
   labs(title = 'Average Fairly Active Minutes by Weekday')+
-  ylab('Avg. Fairly Active Minutes')
+  ylab('Avg. Fairly Active Minutes') +
+  xlab('Weekday')
+
+png(file.path(getwd(),"_assets",
+              "Fairly_Weekday.png")
+    )
+print(p)
+
+dev.off()
 ```
 
 ```{r}
 # Create plot of avg very active minutes per Weekday
-ggplot(data = activity_sleep_pivot, aes(x = weekday, y = mean_va_minutes)) + 
+p <- ggplot(data = activity_sleep_pivot, aes(x = weekday, y = mean_va_minutes)) + 
   geom_bar(stat = 'identity', fill = 'blue') +
   labs(title = 'Average Very Active Minutes by Weekday')+
-  ylab('Avg. Very Active Minutes')
+  ylab('Avg. Very Active Minutes') +
+  xlab('Weekday')
+
+png(file.path(getwd(),"_assets",
+              "Very_Weekday.png")
+    )
+print(p)
+
+dev.off()
 ```
 
 ```{r}
@@ -240,19 +308,38 @@ activity_sleep_merge <- activity_sleep_merge %>% select(-c(sedentary_score,
 
 ```{r}
 # Create boxplots of calories burned for each activity level
-ggplot(data = activity_sleep_merge, aes(x = activity_level, y = calories,
+p <- ggplot(data = activity_sleep_merge, aes(x = activity_level, y = calories,
                                         fill = activity_level)) +
   geom_boxplot() +
   theme(legend.position = 'none') +
-  labs(title = 'Calories burned by activity level')
+  labs(title = 'Calories Burned by Activity Level') +
+  ylab('Calories') +
+  xlab('Activity Level')
+
+png(file.path(getwd(),"_assets",
+              "Calories_Activity_Level.png")
+    )
+print(p)
+
+dev.off()
 ```
 
 
 ```{r}
 # Create scatterplot for total steps and sleep minutes
-ggplot(data = activity_sleep_merge, aes(x = total_steps, y = total_minutes_asleep)) +
+p <- ggplot(data = activity_sleep_merge, aes(x = total_steps, y = total_minutes_asleep)) +
   geom_point(color = 'blue') +
-  geom_smooth(method = lm)
+  geom_smooth(method = lm) +
+  labs(title = 'Relationship between Total Steps and Total Minutes Asleep')+
+  ylab('Total Minutes Asleep') +
+  xlab('Total Steps')
+
+png(file.path(getwd(),"_assets",
+              "Steps_Sleep.png")
+    )
+print(p)
+
+dev.off()
 ```
 
 ```{r}
@@ -263,9 +350,19 @@ cor(activity_sleep_merge$total_steps, activity_sleep_merge$total_minutes_asleep)
 
 ```{r}
 # Create scatterplot for total distance and sleep minutes
-ggplot(data = activity_sleep_merge, aes(x = total_distance, y = total_minutes_asleep)) +
+p <- ggplot(data = activity_sleep_merge, aes(x = total_distance, y = total_minutes_asleep)) +
   geom_point(color = 'blue') +
-  geom_smooth(method = lm)
+  geom_smooth(method = lm) +
+  labs(title = 'Relationship between Total Distance and Total Minutes Asleep')+
+  ylab('Total Minutes Asleep') +
+  xlab('Total Distance (km)')
+
+png(file.path(getwd(),"_assets",
+              "Distance_Sleep.png")
+    )
+print(p)
+
+dev.off()
 ```
 
 ```{r}
@@ -276,9 +373,19 @@ cor(activity_sleep_merge$total_distance, activity_sleep_merge$total_minutes_asle
 
 ```{r}
 # Create scatterplot for very active minutes and sleep minutes
-ggplot(data = activity_sleep_merge, aes(x = very_active_minutes, y = total_minutes_asleep)) +
+p <- ggplot(data = activity_sleep_merge, aes(x = very_active_minutes, y = total_minutes_asleep)) +
   geom_point(color = 'blue') +
-  geom_smooth(method = lm)
+  geom_smooth(method = lm) +
+  labs(title = 'Relationship between Very Active Minutes and Total Minutes Asleep')+
+  ylab('Total Minutes Asleep') +
+  xlab('Very Active Minutes')
+
+png(file.path(getwd(),"_assets",
+              "Very_Sleep.png")
+    )
+print(p)
+
+dev.off()
 ```
 
 ```{r}
@@ -289,9 +396,19 @@ cor(activity_sleep_merge$very_active_minutes, activity_sleep_merge$total_minutes
 
 ```{r}
 # Create scatterplot for fairly active minutes and sleep minutes
-ggplot(data = activity_sleep_merge, aes(x = fairly_active_minutes, y = total_minutes_asleep)) +
+p <- ggplot(data = activity_sleep_merge, aes(x = fairly_active_minutes, y = total_minutes_asleep)) +
   geom_point(color = 'blue') +
-  geom_smooth(method = lm)
+  geom_smooth(method = lm) +
+  labs(title = 'Relationship between Fairly Active Minutes and Total Minutes Asleep')+
+  ylab('Total Minutes Asleep') +
+  xlab('Fairly Active Minutes')
+
+png(file.path(getwd(),"_assets",
+              "Fairly_Sleep.png")
+    )
+print(p)
+
+dev.off()
 ```
 
 ```{r}
@@ -302,9 +419,19 @@ cor(activity_sleep_merge$fairly_active_minutes, activity_sleep_merge$total_minut
 
 ```{r}
 # Create scatterplot for lightly active minutes and sleep minutes
-ggplot(data = activity_sleep_merge, aes(x = lightly_active_minutes, y = total_minutes_asleep)) +
+p <- ggplot(data = activity_sleep_merge, aes(x = lightly_active_minutes, y = total_minutes_asleep)) +
   geom_point(color = 'blue') +
-  geom_smooth(method = lm)
+  geom_smooth(method = lm) +
+  labs(title = 'Relationship between Lightly Active Minutes and Total Minutes Asleep')+
+  ylab('Total Minutes Asleep') +
+  xlab('Lightly Active Minutes')
+
+png(file.path(getwd(),"_assets",
+              "Lightly_Sleep.png")
+    )
+print(p)
+
+dev.off()
 ```
 
 ```{r}
@@ -315,9 +442,19 @@ cor(activity_sleep_merge$lightly_active_minutes, activity_sleep_merge$total_minu
 
 ```{r}
 # Create scatterplot for sedentary minutes and sleep minutes
-ggplot(data = activity_sleep_merge, aes(x = sedentary_minutes, y = total_minutes_asleep)) +
+p <- ggplot(data = activity_sleep_merge, aes(x = sedentary_minutes, y = total_minutes_asleep)) +
   geom_point(color = 'blue') +
-  geom_smooth(method = lm)
+  geom_smooth(method = lm) +
+  labs(title = 'Relationship between Sedentary Minutes and Total Minutes Asleep')+
+  ylab('Total Minutes Asleep') +
+  xlab('Sedentary Minutes')
+
+png(file.path(getwd(),"_assets",
+              "Sedentary_Sleep.png")
+    )
+print(p)
+
+dev.off()
 ```
 
 ```{r}
@@ -327,9 +464,19 @@ cor(activity_sleep_merge$sedentary_minutes, activity_sleep_merge$total_minutes_a
 
 ```{r}
 # Create scatterplot for total steps and weight (pounds)
-ggplot(data = activity_weight_merge, aes(x = total_steps, y = weight_pounds)) +
+p <- ggplot(data = activity_weight_merge, aes(x = total_steps, y = weight_pounds)) +
   geom_point(color = 'blue') +
-  geom_smooth(method = lm)
+  geom_smooth(method = lm) +
+  labs(title = 'Relationship between Total Steps and Weight')+
+  ylab('Weight (lbs)') +
+  xlab('Total Steps')
+
+png(file.path(getwd(),"_assets",
+              "Steps_Weight.png")
+    )
+print(p)
+
+dev.off()
 ```
 
 ```{r}
@@ -340,9 +487,19 @@ cor(activity_weight_merge$total_steps, activity_weight_merge$weight_pounds)
 
 ```{r}
 # Create scatterplot for total distance and weight (pounds)
-ggplot(data = activity_weight_merge, aes(x = total_distance, y = weight_pounds)) +
+p <- ggplot(data = activity_weight_merge, aes(x = total_distance, y = weight_pounds)) +
   geom_point(color = 'blue') +
-  geom_smooth(method = lm)
+  geom_smooth(method = lm) +
+  labs(title = 'Relationship between Total Distance and Weight')+
+  ylab('Weight (lbs)') +
+  xlab('Total Distance (km)')
+
+png(file.path(getwd(),"_assets",
+              "Distance_Weight.png")
+    )
+print(p)
+
+dev.off()
 ```
 
 ```{r}
@@ -353,9 +510,19 @@ cor(activity_weight_merge$total_distance, activity_weight_merge$weight_pounds)
 
 ```{r}
 # Create scatterplot for very active minutes and weight (pounds)
-ggplot(data = activity_weight_merge, aes(x = very_active_minutes, y = weight_pounds)) +
+p <- ggplot(data = activity_weight_merge, aes(x = very_active_minutes, y = weight_pounds)) +
   geom_point(color = 'blue') +
-  geom_smooth(method = lm)
+  geom_smooth(method = lm) +
+  labs(title = 'Relationship between Very Active Minutes and Weight')+
+  ylab('Weight (lbs)') +
+  xlab('Very Active Minutes')
+
+png(file.path(getwd(),"_assets",
+              "Very_Weight.png")
+    )
+print(p)
+
+dev.off()
 ```
 
 ```{r}
@@ -366,9 +533,19 @@ cor(activity_weight_merge$very_active_minutes, activity_weight_merge$weight_poun
 
 ```{r}
 # Create scatterplot for fairly active minutes and weight (pounds)
-ggplot(data = activity_weight_merge, aes(x = fairly_active_minutes, y = weight_pounds)) +
+p <- ggplot(data = activity_weight_merge, aes(x = fairly_active_minutes, y = weight_pounds)) +
   geom_point(color = 'blue') +
-  geom_smooth(method = lm)
+  geom_smooth(method = lm) +
+  labs(title = 'Relationship between Fairly Active Minutes and Weight')+
+  ylab('Weight (lbs)') +
+  xlab('Fairly Active Minutes')
+
+png(file.path(getwd(),"_assets",
+              "Fairly_Weight.png")
+    )
+print(p)
+
+dev.off()
 ```
 
 ```{r}
@@ -379,10 +556,20 @@ cor(activity_weight_merge$fairly_active_minutes, activity_weight_merge$weight_po
 
 ```{r}
 # Create scatterplot for lightly active minutes and weight (pounds)
-ggplot(data = activity_weight_merge,
+p <- ggplot(data = activity_weight_merge,
        aes(x = lightly_active_minutes, y = weight_pounds)) +
   geom_point(color = 'blue') +
-  geom_smooth(method = lm)
+  geom_smooth(method = lm) +
+  labs(title = 'Relationship between Lightly Active Minutes and Weight')+
+  ylab('Weight (lbs)') +
+  xlab('Lightly Active Minutes')
+
+png(file.path(getwd(),"_assets",
+              "Lightly_Weight.png")
+    )
+print(p)
+
+dev.off()
 ```
 
 ```{r}
@@ -393,9 +580,19 @@ cor(activity_weight_merge$lightly_active_minutes, activity_weight_merge$weight_p
 
 ```{r}
 # Create scatterplot for sedentary minutes and weight (pounds)
-ggplot(data = activity_weight_merge, aes(x = sedentary_minutes, y = weight_pounds)) +
+p <- ggplot(data = activity_weight_merge, aes(x = sedentary_minutes, y = weight_pounds)) +
   geom_point(color = 'blue') +
-  geom_smooth(method = lm)
+  geom_smooth(method = lm) +
+  labs(title = 'Relationship between Sedentary Minutes and Weight')+
+  ylab('Weight (lbs)') +
+  xlab('Sedentary Minutes')
+
+png(file.path(getwd(),"_assets",
+              "Sedentary_Weight.png")
+    )
+print(p)
+
+dev.off()
 ```
 
 ```{r}
@@ -407,9 +604,19 @@ cor(activity_weight_merge$sedentary_minutes, activity_weight_merge$weight_pounds
 
 ```{r}
 # Create scatterplot for total steps and calories
-ggplot(data = activity_sleep_merge, aes(x = total_steps, y = calories)) +
+p <- ggplot(data = activity_sleep_merge, aes(x = total_steps, y = calories)) +
   geom_point(color = 'blue') +
-  geom_smooth(method = lm)
+  geom_smooth(method = lm) +
+  labs(title = 'Relationship between Total Steps and Calories')+
+  ylab('Calories') +
+  xlab('Total Steps')
+
+png(file.path(getwd(),"_assets",
+              "Steps_Calories.png")
+    )
+print(p)
+
+dev.off()
 ```
 
 ```{r}
@@ -420,9 +627,19 @@ cor(activity_sleep_merge$total_steps, activity_sleep_merge$calories)
 
 ```{r}
 # Create scatterplot for total distance and calories
-ggplot(data = activity_sleep_merge, aes(x = total_distance, y = calories)) +
+p <- ggplot(data = activity_sleep_merge, aes(x = total_distance, y = calories)) +
   geom_point(color = 'blue') +
-  geom_smooth(method = lm)
+  geom_smooth(method = lm) +
+  labs(title = 'Relationship between Total Distance and Calories')+
+  ylab('Calories') +
+  xlab('Total Distance (km)')
+
+png(file.path(getwd(),"_assets",
+              "Distance_Calories.png")
+    )
+print(p)
+
+dev.off()
 ```
 
 ```{r}
@@ -433,9 +650,19 @@ cor(activity_sleep_merge$total_distance, activity_sleep_merge$calories)
 
 ```{r}
 # Create scatterplot for very active minutes and calories
-ggplot(data = activity_sleep_merge, aes(x = very_active_minutes, y = calories)) +
+p <- ggplot(data = activity_sleep_merge, aes(x = very_active_minutes, y = calories)) +
   geom_point(color = 'blue') +
-  geom_smooth(method = lm)
+  geom_smooth(method = lm) +
+  labs(title = 'Relationship between Very Active Minutes and Calories')+
+  ylab('Calories') +
+  xlab('Very Active Minutes')
+
+png(file.path(getwd(),"_assets",
+              "Very_Calories.png")
+    )
+print(p)
+
+dev.off()
 ```
 
 ```{r}
@@ -446,9 +673,19 @@ cor(activity_sleep_merge$very_active_minutes, activity_sleep_merge$calories)
 
 ```{r}
 # Create scatterplot for fairly active minutes and calories
-ggplot(data = activity_sleep_merge, aes(x = fairly_active_minutes, y = calories)) +
+p <- ggplot(data = activity_sleep_merge, aes(x = fairly_active_minutes, y = calories)) +
   geom_point(color = 'blue') +
-  geom_smooth(method = lm)
+  geom_smooth(method = lm) +
+  labs(title = 'Relationship between Fairly Active Minutes and Calories')+
+  ylab('Calories') +
+  xlab('Fairly Active Minutes')
+
+png(file.path(getwd(),"_assets",
+              "Fairly_Calories.png")
+    )
+print(p)
+
+dev.off()
 ```
 
 ```{r}
@@ -459,9 +696,19 @@ cor(activity_sleep_merge$fairly_active_minutes, activity_sleep_merge$calories)
 
 ```{r}
 # Create scatterplot for lightly active minutes and calories
-ggplot(data = activity_sleep_merge, aes(x = lightly_active_minutes, y = calories)) +
+p <- ggplot(data = activity_sleep_merge, aes(x = lightly_active_minutes, y = calories)) +
   geom_point(color = 'blue') +
-  geom_smooth(method = lm)
+  geom_smooth(method = lm) +
+  labs(title = 'Relationship between Lightly Active Minutes and Calories')+
+  ylab('Calories') +
+  xlab('Lightly Active Minutes')
+
+png(file.path(getwd(),"_assets",
+              "Lightly_Calories.png")
+    )
+print(p)
+
+dev.off()
 ```
 
 ```{r}
@@ -472,13 +719,52 @@ cor(activity_sleep_merge$lightly_active_minutes, activity_sleep_merge$calories)
 
 ```{r}
 # Create scatterplot for sedentary minutes and calories
-ggplot(data = activity_sleep_merge, aes(x = sedentary_minutes, y = calories)) +
+p <- ggplot(data = activity_sleep_merge, aes(x = sedentary_minutes, y = calories)) +
   geom_point(color = 'blue') +
-  geom_smooth(method = lm)
+  geom_smooth(method = lm) +
+  labs(title = 'Relationship between Sedentary Minutes and Calories')+
+  ylab('Calories') +
+  xlab('Sedentary Minutes')
+
+png(file.path(getwd(),"_assets",
+              "Sedentary_Calories.png")
+    )
+print(p)
+
+dev.off()
 ```
 
 ```{r}
 # Correlation between sedentary minutes and calories
 cor(activity_sleep_merge$sedentary_minutes, activity_sleep_merge$calories)
+```
+
+```{r}
+# Save datasets for a Tableau Dashboard
+write.csv(activity_sleep_merge, file = "Activity_Sleep_Merge.csv")
+write.csv(activity_weight_merge, file = "Activity_Weight_Merge.csv")
+```
+
+```{r}
+# Get summary info
+summary(activity_sleep_merge)
+
+act_sleep_table <- xtable(summary(activity_sleep_merge),
+                          caption = 'Activity_Sleep_Summary',
+                          label = 'Act_Sleep_Sum')
+act_sleep_sum <- print(act_sleep_table, include.rownames = FALSE, table.placement = 'H')
+
+writeLines(act_sleep_sum, file.path('_assets', 'Activity_Sleep_Summary.tex'))
+```
+
+```{r}
+summary(activity_weight_merge)
+
+act_weight_table <- xtable(summary(activity_weight_merge),
+                          caption = 'Activity_Weight_Summary',
+                          label = 'Act_Weight_Sum')
+act_weight_sum <- print(act_weight_table, include.rownames = FALSE, table.placement = 'H')
+
+writeLines(act_weight_sum, file.path('_assets', 'Activity_Weight_Summary.tex'))
 ```
 
