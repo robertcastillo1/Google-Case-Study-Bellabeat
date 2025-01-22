@@ -90,11 +90,12 @@ Obtain the summary for all columns. We can see that the average amount of time s
 ```
 summary(activity_sleep_merge)
 ```
+![Activity_Sleep_Summary](https://github.com/user-attachments/assets/5b539e74-42f6-4b00-8dc0-86fd03c84241)
 
 ```
 summary(activity_weight_merge)
 ```
-(Include output for the summaries of the 2 datasets)
+![Activity_Weight_Summary](https://github.com/user-attachments/assets/3482b64c-e9ea-4a91-bf5a-b6ef530337f8)
 
 Calories:
 Based on the boxplot below, we can see that as expected those who were very active have on average more calories burned. Slightly more surprising is the fact that those who were lightly active have on average more calories burned than those in the fairly active or sedentary groups.
@@ -109,8 +110,7 @@ ggplot(data = activity_sleep_merge, aes(x = activity_level, y = calories,
   ylab('Calories') +
   xlab('Activity Level')
 ```
-
-(Include plot for Calories burned by activity level)
+![Calories_Activity_Level](https://github.com/user-attachments/assets/3bf7ff8e-b9dd-4041-9055-c28730661cac)
 
 When we look at the scatterplots of the different activity level minutes, we can see that all activity level minutes have a positive correlation with calories burned. Because they are all similar plots, there aren't too many strong conclusions we can make about the ideal activity level to have.
 
@@ -123,6 +123,7 @@ ggplot(data = activity_sleep_merge, aes(x = very_active_minutes, y = calories)) 
   ylab('Calories') +
   xlab('Very Active Minutes')
 ```
+![Very_Calories](https://github.com/user-attachments/assets/119e0b6b-9adc-4c74-a560-f253d4ff8b2c)
 
 ```
 # Create scatterplot for fairly active minutes and calories
@@ -133,6 +134,7 @@ ggplot(data = activity_sleep_merge, aes(x = fairly_active_minutes, y = calories)
   ylab('Calories') +
   xlab('Fairly Active Minutes')
 ```
+![Fairly_Calories](https://github.com/user-attachments/assets/94f716e3-0bb5-4404-adad-a0e8b5aac362)
 
 ```
 # Create scatterplot for lightly active minutes and calories
@@ -143,6 +145,7 @@ ggplot(data = activity_sleep_merge, aes(x = lightly_active_minutes, y = calories
   ylab('Calories') +
   xlab('Lightly Active Minutes')
 ```
+![Lightly_Calories](https://github.com/user-attachments/assets/09e00b16-1cac-43e0-b823-5fd3e5fdf8e3)
 
 ```
 # Create scatterplot for sedentary minutes and calories
@@ -153,8 +156,7 @@ ggplot(data = activity_sleep_merge, aes(x = sedentary_minutes, y = calories)) +
   ylab('Calories') +
   xlab('Sedentary Minutes')
 ```
-
-(Include plots for calories burned by activity type minutes)
+![Sedentary_Calories](https://github.com/user-attachments/assets/e06cb53a-93ba-482e-87f6-77094d7a2b87)
 
 Weekday:
 As a result of lightly active individuals having more calories burned than fairly active or sedentary people, I took a closer look at Lightly Active Minutes by Weekday. As can be seen below, Saturday has the highest average lightly active minutes and Sunday has the lowest. During the week, minutes decrease as the week go along, and then increase once the weekend arrives.
@@ -167,8 +169,7 @@ ggplot(data = activity_sleep_pivot, aes(x = weekday, y = mean_la_minutes)) +
   ylab('Avg. Lightly Active Minutes') +
   xlab('Weekday')
 ```
-
-(Include plot for Average Lightly Active Minutes by Weekday)
+![Lightly_Weekday](https://github.com/user-attachments/assets/f3744fb7-4322-4fca-b8ca-651140e473e1)
 
 Sleep:
 I wanted to get an idea of the relationship between the different activity level minutes and sleep. Based on the scatterplots below, most activity level minutes have a negative correlation with sleep minutes. Lightly active minutes have almost no correlation with sleep minutes
@@ -182,6 +183,7 @@ ggplot(data = activity_sleep_merge, aes(x = very_active_minutes, y = total_minut
   ylab('Total Minutes Asleep') +
   xlab('Very Active Minutes')
 ```
+![Very_Sleep](https://github.com/user-attachments/assets/3246c3d7-fd2a-461f-8b64-4e837ef104cb)
 
 ```
 # Create scatterplot for fairly active minutes and sleep minutes
@@ -192,6 +194,7 @@ ggplot(data = activity_sleep_merge, aes(x = fairly_active_minutes, y = total_min
   ylab('Total Minutes Asleep') +
   xlab('Fairly Active Minutes')
 ```
+![Fairly_Sleep](https://github.com/user-attachments/assets/4a2e3865-3c2f-4500-b713-5c978adf1bcb)
 
 ```
 # Create scatterplot for lightly active minutes and sleep minutes
@@ -202,6 +205,7 @@ ggplot(data = activity_sleep_merge, aes(x = lightly_active_minutes, y = total_mi
   ylab('Total Minutes Asleep') +
   xlab('Lightly Active Minutes')
 ```
+![Lightly_Sleep](https://github.com/user-attachments/assets/298dd48b-41bc-4ac5-ab39-36ef15442fac)
 
 ```
 # Create scatterplot for sedentary minutes and sleep minutes
@@ -212,7 +216,7 @@ ggplot(data = activity_sleep_merge, aes(x = sedentary_minutes, y = total_minutes
   ylab('Total Minutes Asleep') +
   xlab('Sedentary Minutes')
 ```
-(Include scatterplots for all 4 activity level types and sleep minutes)
+![Sedentary_Sleep](https://github.com/user-attachments/assets/3a19c890-07d0-4fb2-9128-ee30bc1a5a95)
 
 Weight:
 When looking at activity level minutes and weight, we can see some interesting relationships. Both Fairly active minutes and lightly active minutes have a negative relationship with weight. Oddly enough very active minutes have a positive relationship with weight. When you look at the plot there are very clearly two major weights: around 180 and 130 pounds. So maybe the trend line is not the most indicative of a strong correlation.
@@ -226,6 +230,7 @@ ggplot(data = activity_weight_merge, aes(x = very_active_minutes, y = weight_pou
   ylab('Weight (lbs)') +
   xlab('Very Active Minutes')
 ```
+![Very_Weight](https://github.com/user-attachments/assets/72242de9-9604-47e7-990d-6ea3388e7a2e)
 
 ```
 # Create scatterplot for fairly active minutes and weight (pounds)
@@ -236,6 +241,7 @@ ggplot(data = activity_weight_merge, aes(x = fairly_active_minutes, y = weight_p
   ylab('Weight (lbs)') +
   xlab('Fairly Active Minutes')
 ```
+![Fairly_Weight](https://github.com/user-attachments/assets/73591cb2-41d8-45f6-95c2-0f86ab8f2ba5)
 
 ```
 # Create scatterplot for lightly active minutes and weight (pounds)
@@ -247,6 +253,7 @@ ggplot(data = activity_weight_merge,
   ylab('Weight (lbs)') +
   xlab('Lightly Active Minutes')
 ```
+![Lightly_Weight](https://github.com/user-attachments/assets/69eec402-cf62-4ddb-add7-a54224d5daad)
 
 ```
 # Create scatterplot for sedentary minutes and weight (pounds)
@@ -257,7 +264,7 @@ ggplot(data = activity_weight_merge, aes(x = sedentary_minutes, y = weight_pound
   ylab('Weight (lbs)') +
   xlab('Sedentary Minutes')
 ```
-(Include scatterplots for all 4 activity level types and weight)
+![Sedentary_Weight](https://github.com/user-attachments/assets/6319e24d-233b-4fe4-b081-2b57aadea7ce)
 
 ## Share
 
