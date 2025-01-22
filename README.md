@@ -222,7 +222,7 @@ ggplot(data = activity_weight_merge, aes(x = sedentary_minutes, y = weight_pound
 
 ## Share
 
-(Include link to Tableau dashboard)
+[Tableau Dashboard](https://public.tableau.com/app/profile/robert.castillo/viz/BellabeatCaseStudy_17332534156220/ActiveMinutesDashboard)
 
 (Include link/file for the PowerPoint presentation)
 
