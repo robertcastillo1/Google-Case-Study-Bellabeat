@@ -105,7 +105,9 @@ ggplot(data = activity_sleep_merge, aes(x = activity_level, y = calories,
                                         fill = activity_level)) +
   geom_boxplot() +
   theme(legend.position = 'none') +
-  labs(title = 'Calories burned by activity level')
+  labs(title = 'Calories Burned by Activity Level') +
+  ylab('Calories') +
+  xlab('Activity Level')
 ```
 
 (Include plot for Calories burned by activity level)
@@ -116,28 +118,40 @@ When we look at the scatterplots of the different activity level minutes, we can
 # Create scatterplot for very active minutes and calories
 ggplot(data = activity_sleep_merge, aes(x = very_active_minutes, y = calories)) +
   geom_point(color = 'blue') +
-  geom_smooth(method = lm)
+  geom_smooth(method = lm) +
+  labs(title = 'Relationship between Very Active Minutes and Calories')+
+  ylab('Calories') +
+  xlab('Very Active Minutes')
 ```
 
 ```
 # Create scatterplot for fairly active minutes and calories
 ggplot(data = activity_sleep_merge, aes(x = fairly_active_minutes, y = calories)) +
   geom_point(color = 'blue') +
-  geom_smooth(method = lm)
+  geom_smooth(method = lm) +
+  labs(title = 'Relationship between Fairly Active Minutes and Calories')+
+  ylab('Calories') +
+  xlab('Fairly Active Minutes')
 ```
 
 ```
 # Create scatterplot for lightly active minutes and calories
 ggplot(data = activity_sleep_merge, aes(x = lightly_active_minutes, y = calories)) +
   geom_point(color = 'blue') +
-  geom_smooth(method = lm)
+  geom_smooth(method = lm) +
+  labs(title = 'Relationship between Lightly Active Minutes and Calories')+
+  ylab('Calories') +
+  xlab('Lightly Active Minutes')
 ```
 
 ```
 # Create scatterplot for sedentary minutes and calories
 ggplot(data = activity_sleep_merge, aes(x = sedentary_minutes, y = calories)) +
   geom_point(color = 'blue') +
-  geom_smooth(method = lm)
+  geom_smooth(method = lm) +
+  labs(title = 'Relationship between Sedentary Minutes and Calories')+
+  ylab('Calories') +
+  xlab('Sedentary Minutes')
 ```
 
 (Include plots for calories burned by activity type minutes)
@@ -150,7 +164,8 @@ As a result of lightly active individuals having more calories burned than fairl
 ggplot(data = activity_sleep_pivot, aes(x = weekday, y = mean_la_minutes)) + 
   geom_bar(stat = 'identity', fill = 'blue') +
   labs(title = 'Average Lightly Active Minutes by Weekday')+
-  ylab('Avg. Lightly Active Minutes')
+  ylab('Avg. Lightly Active Minutes') +
+  xlab('Weekday')
 ```
 
 (Include plot for Average Lightly Active Minutes by Weekday)
@@ -162,28 +177,40 @@ I wanted to get an idea of the relationship between the different activity level
 # Create scatterplot for very active minutes and sleep minutes
 ggplot(data = activity_sleep_merge, aes(x = very_active_minutes, y = total_minutes_asleep)) +
   geom_point(color = 'blue') +
-  geom_smooth(method = lm)
+  geom_smooth(method = lm) +
+  labs(title = 'Relationship between Very Active Minutes and Total Minutes Asleep')+
+  ylab('Total Minutes Asleep') +
+  xlab('Very Active Minutes')
 ```
 
 ```
 # Create scatterplot for fairly active minutes and sleep minutes
 ggplot(data = activity_sleep_merge, aes(x = fairly_active_minutes, y = total_minutes_asleep)) +
   geom_point(color = 'blue') +
-  geom_smooth(method = lm)
+  geom_smooth(method = lm) +
+  labs(title = 'Relationship between Fairly Active Minutes and Total Minutes Asleep')+
+  ylab('Total Minutes Asleep') +
+  xlab('Fairly Active Minutes')
 ```
 
 ```
 # Create scatterplot for lightly active minutes and sleep minutes
 ggplot(data = activity_sleep_merge, aes(x = lightly_active_minutes, y = total_minutes_asleep)) +
   geom_point(color = 'blue') +
-  geom_smooth(method = lm)
+  geom_smooth(method = lm) +
+  labs(title = 'Relationship between Lightly Active Minutes and Total Minutes Asleep')+
+  ylab('Total Minutes Asleep') +
+  xlab('Lightly Active Minutes')
 ```
 
 ```
 # Create scatterplot for sedentary minutes and sleep minutes
 ggplot(data = activity_sleep_merge, aes(x = sedentary_minutes, y = total_minutes_asleep)) +
   geom_point(color = 'blue') +
-  geom_smooth(method = lm)
+  geom_smooth(method = lm) +
+  labs(title = 'Relationship between Sedentary Minutes and Total Minutes Asleep')+
+  ylab('Total Minutes Asleep') +
+  xlab('Sedentary Minutes')
 ```
 (Include scatterplots for all 4 activity level types and sleep minutes)
 
@@ -194,14 +221,20 @@ When looking at activity level minutes and weight, we can see some interesting r
 # Create scatterplot for very active minutes and weight (pounds)
 ggplot(data = activity_weight_merge, aes(x = very_active_minutes, y = weight_pounds)) +
   geom_point(color = 'blue') +
-  geom_smooth(method = lm)
+  geom_smooth(method = lm) +
+  labs(title = 'Relationship between Very Active Minutes and Weight')+
+  ylab('Weight (lbs)') +
+  xlab('Very Active Minutes')
 ```
 
 ```
 # Create scatterplot for fairly active minutes and weight (pounds)
 ggplot(data = activity_weight_merge, aes(x = fairly_active_minutes, y = weight_pounds)) +
   geom_point(color = 'blue') +
-  geom_smooth(method = lm)
+  geom_smooth(method = lm) +
+  labs(title = 'Relationship between Fairly Active Minutes and Weight')+
+  ylab('Weight (lbs)') +
+  xlab('Fairly Active Minutes')
 ```
 
 ```
@@ -209,14 +242,20 @@ ggplot(data = activity_weight_merge, aes(x = fairly_active_minutes, y = weight_p
 ggplot(data = activity_weight_merge,
        aes(x = lightly_active_minutes, y = weight_pounds)) +
   geom_point(color = 'blue') +
-  geom_smooth(method = lm)
+  geom_smooth(method = lm) +
+  labs(title = 'Relationship between Lightly Active Minutes and Weight')+
+  ylab('Weight (lbs)') +
+  xlab('Lightly Active Minutes')
 ```
 
 ```
 # Create scatterplot for sedentary minutes and weight (pounds)
 ggplot(data = activity_weight_merge, aes(x = sedentary_minutes, y = weight_pounds)) +
   geom_point(color = 'blue') +
-  geom_smooth(method = lm)
+  geom_smooth(method = lm) +
+  labs(title = 'Relationship between Sedentary Minutes and Weight')+
+  ylab('Weight (lbs)') +
+  xlab('Sedentary Minutes')
 ```
 (Include scatterplots for all 4 activity level types and weight)
 
