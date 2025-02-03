@@ -172,7 +172,7 @@ ggplot(data = activity_sleep_pivot, aes(x = weekday, y = mean_la_minutes)) +
 ![Lightly_Weekday](https://github.com/user-attachments/assets/f3744fb7-4322-4fca-b8ca-651140e473e1)
 
 Sleep:
-I wanted to get an idea of the relationship between the different activity level minutes and sleep. Based on the scatterplots below, most activity level minutes have a negative correlation with sleep minutes. Lightly active minutes have almost no correlation with sleep minutes
+I wanted to get an idea of the relationship between the different activity level minutes and sleep. Based on the scatterplots below, most activity level minutes have a negative correlation with sleep minutes. Lightly active minutes have almost no correlation with sleep minutes.
 
 ```
 # Create scatterplot for very active minutes and sleep minutes
@@ -270,7 +270,7 @@ ggplot(data = activity_weight_merge, aes(x = sedentary_minutes, y = weight_pound
 
 [Tableau Dashboard](https://public.tableau.com/app/profile/robert.castillo/viz/BellabeatCaseStudy_17332534156220/ActiveMinutesDashboard)
 
-(Include link/file for the PowerPoint presentation)
+[PowerPoint Presentation](https://docs.google.com/presentation/d/1AdyBQyVB6NaSrF_3CPwFFuJ5SG-RyHpes5qvk1XZWLw/edit?usp=sharing)
 
 ## Act
 Conclusions based on the Analysis:
